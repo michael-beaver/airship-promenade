@@ -54,6 +54,7 @@ spec:
 {{ tuple $envAll $envAll.Values.pod.resources.daemonset_anchor | include "helm-toolkit.snippets.kubernetes_resources" | indent 10 }}
           command:
             - /tmp/bin/etcdctl_anchor
+          args: ["--listen-metrics-urls=http://localhost:2379,http://localhost:9379,https://localhost:2379"]
           env:
             - name: ETCD_NAME
               valueFrom:

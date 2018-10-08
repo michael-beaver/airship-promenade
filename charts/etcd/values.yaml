@@ -14,8 +14,8 @@
 
 images:
   tags:
-    etcd: quay.io/coreos/etcd:v3.2.14
-    etcdctl: quay.io/coreos/etcd:v3.2.14
+    etcd: quay.io/coreos/etcd:v3.3
+    etcdctl: quay.io/coreos/etcd:v3.3
   pull_policy: "IfNotPresent"
 
 labels:
@@ -123,6 +123,13 @@ pod:
       requests:
         memory: "128Mi"
         cpu: "100m"
+
+monitoring:
+  prometheus:
+    enabled: true
+    etcd:
+      scrape: true
+      port: 2379
 
 manifests:
   configmap_bin: true

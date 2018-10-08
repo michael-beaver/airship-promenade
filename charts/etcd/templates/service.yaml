@@ -21,7 +21,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ $envAll.Values.service.name }}
+  annotations:
+{{- if .Values.monitoring.prometheus.enabled }}
+{{ tuple .Values.monitoring.prometheus.etcd | include "helm-toolkit.snippets.prometheus_service_annotations" | indent 4 -}}
+{{- end }}
 spec:
+  containers:
+    args: ["--listen-metrics-urls=http://localhost:2379,http://localhost:9379,https://localhost:2379"]
   ports:
     {{ if .Values.network.service_client.enable_node_port }}
     - name: etcd
